@@ -1,39 +1,40 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import { useRoute } from "vue-router";
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
 
-const isScrolled = ref(false);
-const route = useRoute();
+const isScrolled = ref(false)
+const route = useRoute()
 
 const menus = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
   {
-    name: "Browse",
-    path: "/browse",
+    name: 'Browse',
+    path: '/browse',
     children: [
       {
-        name: "Event List",
-        path: "/browse/events",
-        children: [{ name: "Event Detail (Sample)", path: "/browse/events/1" }],
+        name: 'Event List',
+        path: '/browse/events',
+        children: [{ name: 'Event Detail (Sample)', path: '/browse/events/1' }],
       },
-      { name: "Category", path: "/browse/category" },
+      { name: 'Category', path: '/browse/category' },
     ],
   },
-  { name: "Contact", path: "/contact" },
-];
+  { name: 'Contact', path: '/contact' },
+  { name: 'Organizer Dashboard', path: '/dashboard' },
+]
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 10;
-};
+  isScrolled.value = window.scrollY > 10
+}
 
 onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
-});
+  window.addEventListener('scroll', handleScroll)
+})
 
 onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <template>
@@ -50,7 +51,8 @@ onUnmounted(() => {
         >
           <path d="M12 0L22.3923 6V18L12 24L1.6077 18V6L12 0Z" fill="white" />
           <path
-            d="M15 9.5 C15 9.5 14 8 12 8 C9.5 8 8 10 8 12.5 C8 15 9.5 17 12 17 C14 17 15 16 15.5 14.5 V 12.5 H 12.5"
+            d="M15 9.5 C15 9.5 14 8 12 8 C9.5 8 8 10 8 12.5 C8 15 9.5 17 12 17 C14 17 15 16
+15.5 14.5 V 12.5 H 12.5"
             stroke="#1A1643"
             stroke-width="2.5"
             stroke-linecap="round"
@@ -59,7 +61,6 @@ onUnmounted(() => {
         </svg>
         <span class="logo-text">Gatherly</span>
       </router-link>
-
       <ul class="nav-menu">
         <li class="nav-item" v-for="menu in menus" :key="menu.name">
           <router-link
@@ -67,8 +68,7 @@ onUnmounted(() => {
             class="nav-link"
             :class="{
               active:
-                route.path === menu.path ||
-                (menu.path !== '/' && route.path.startsWith(menu.path)),
+                route.path === menu.path || (menu.path !== '/' && route.path.startsWith(menu.path)),
             }"
           >
             {{ menu.name }}
@@ -88,12 +88,9 @@ onUnmounted(() => {
             </svg>
           </router-link>
 
+          <!-- First Level Dropdown -->
           <ul v-if="menu.children" class="dropdown-menu">
-            <li
-              v-for="child in menu.children"
-              :key="child.name"
-              class="dropdown-item"
-            >
+            <li v-for="child in menu.children" :key="child.name" class="dropdown-item">
               <router-link :to="child.path" class="dropdown-link">
                 {{ child.name }}
                 <svg
@@ -112,12 +109,9 @@ onUnmounted(() => {
                 </svg>
               </router-link>
 
+              <!-- Second Level Dropdown (Submenu) -->
               <ul v-if="child.children" class="submenu">
-                <li
-                  v-for="subchild in child.children"
-                  :key="subchild.name"
-                  class="submenu-item"
-                >
+                <li v-for="subchild in child.children" :key="subchild.name" class="submenu-item">
                   <router-link :to="subchild.path" class="dropdown-link">
                     {{ subchild.name }}
                   </router-link>
@@ -143,7 +137,8 @@ onUnmounted(() => {
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="2" y1="12" x2="22" y2="12"></line>
             <path
-              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0
+1 4-10z"
             ></path>
           </svg>
           <span class="lang-text">EN</span>
@@ -161,7 +156,6 @@ onUnmounted(() => {
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </div>
-
         <button class="hamburger-btn">
           <svg
             width="24"
